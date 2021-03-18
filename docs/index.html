@@ -6,13 +6,14 @@
 <meta name="author" content="HJCD studios">
 <meta name="description" content="A simple code editor with file save and file open no highlighter By HJCD studios">
 <meta name="keywords" content="IDE,Code Editor">
-<!-- <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <script type="text/javascript">
 //made by HJCD studios
 var default_look = "<html>\n<head>\n<title></title>\n</head>\n<body>\n\n</body>\n</html>";
 function inits() {
   var font_size = localStorage.getItem("font");
+  var css_ff = localStorage.getItem("ff");
   if (font_size != null) {
     document.getElementById("index").style.fontSize = font_size;
     document.getElementById("s1").value = font_size;
@@ -27,6 +28,9 @@ function inits() {
      document.getElementById("index").style.color = localStorage.getItem("color");
      document.getElementById("font_col").value = localStorage.getItem("color");
    }
+   if (css_ff != null) {
+     document.getElementById("index").style.fontFamily = css_ff;
+     document.getElementById("s2").value = css_ff;
 }
 function ide_color() {
   document.getElementById("index").style.color = localStorage.getItem("color");
@@ -112,6 +116,10 @@ function change_font(val) {
   document.getElementById("index").style.fontSize = val;
   localStorage.setItem("font",val);
 }
+function change_ff(val) {
+  document.getElementById("index").style.fontFamily = val;
+  localStorage.setItem("ff",val);
+}
 </script>
 <style type="text/css">
 body {
@@ -151,6 +159,7 @@ input[type="button"] {
   border: none;
   background-color: grey;
   border-radius: 20px;
+  overflow: scroll;
   border: 2px solid blue;
 }
 #options > div > i {
@@ -180,7 +189,7 @@ input[type="file"] {
 <i class="fa fa-question" onClick="clicks('help');"> Help</i>
 <br>
 <br>
-<b class="f">Font Size:</b>
+<i class="f">Font Size:</i>
 <select class="f" id="s1" onChange="clicks(); change_font(this.value);">
 <option value="10px">10px</option>
 <option value="11px">11px</option>
@@ -193,6 +202,14 @@ input[type="file"] {
 <option value="18px">18px</option>
 <option value="19px">19px</option>
 <option value="20px">20px</option>
+</select>
+<br>
+<i class="f">Font-Family</i>
+<select id="s2" onChange="clicks(); change_ff(this.value);">
+<option value="sans-serif">sans serif</option>
+<option value="monospace">monospace</option>
+<option value="serif">serif</option>
+<option value="cursive">cursive</option>
 </select>
 <br>
 <br>
