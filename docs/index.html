@@ -141,12 +141,13 @@ iframe {
 p,b {
   color: white;
 }
-input[type="button"] {
+.btn {
   color: rgb(0,150,255);
   background-color: white;
   border-radius: 20px;
   border-color: rgb(0,150,255);
   font-size: 20px;
+  border: 2px solid;
 }
 .f {
   font-family: sans-serif;
@@ -192,7 +193,7 @@ input[type="file"] {
 <i class="fa fa-question" onClick="clicks('help');"> Help</i>
 <br>
 <br>
-<i class="f">Font Size:</i>
+<b class="f">Font Size: </b>
 <select class="f" id="s1" onChange="clicks(); change_font(this.value);">
 <option value="10px">10px</option>
 <option value="11px">11px</option>
@@ -207,7 +208,7 @@ input[type="file"] {
 <option value="20px">20px</option>
 </select>
 <br>
-<i class="f">Font-Family</i>
+<b class="f">Font-Family: </b>
 <select id="s2" onChange="clicks(); change_ff(this.value);">
 <option value="sans-serif">sans serif</option>
 <option value="monospace">monospace</option>
@@ -216,16 +217,20 @@ input[type="file"] {
 </select>
 <br>
 <br>
-<i class="fa fa-color">Font Color</i><input id="font_col" type="color" onChange="localStorage.setItem('color',this.value); ide_color(); clicks()">
+<b class="f">Font Color: </b><input id="font_col" type="color" onChange="localStorage.setItem('color',this.value); ide_color(); clicks()">
 <br>
 <br>
 <br>
-<b class="fĺ onClick="clicks();">Cancel</b>
+<div class="btn f" onClick="clicks();">Cancel</div>
 </div>
 </div>
-<i class="fa fa-code" onClick="switchto('code','index');"> Code</i><br><br>
-<i class="fa fa-play" onClick="switchto('index','code');"> Play</i><br><br>
-<i class="fa fa-ellipsis-v" onClick="show_ops(true);"> Options</i>
+<table>
+<tr>
+<div class="btn f" onClick="switchto('code','index');">Code <i class="fa fa-code"></i></div></td>
+<div class="btn f" onClick="switchto('index,'code');">Play <i class="fa fa-play"></i></div></td>
+<div class="btn f" onClick="show_ops(true);">Options <i class="fa fa-ellipsis-v"></i></div></td>
+</tr>
+</table>
 <hr>
 <textarea class="f" autocapitalize ="no" id="index" rows="1000" onkeyup="output(this.value);save_cache(this.value);">
 </textarea>
