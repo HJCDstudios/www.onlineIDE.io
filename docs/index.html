@@ -23,14 +23,17 @@ function inits() {
   if (localStorage.getItem("text") != null) {
     document.getElementById("index").value = localStorage.getItem("text");
     output(document.getElementById("index").value);
-   }
-   if (localStorage.getItem("color") != null) {
-     document.getElementById("index").style.color = localStorage.getItem("color");
-     document.getElementById("font_col").value = localStorage.getItem("color");
-   }
-   if (css_ff != null) {
-     document.getElementById("index").style.fontFamily = css_ff;
-     document.getElementById("s2").value = css_ff;
+  }
+  if (localStorage.getItem("color") != null) {
+    document.getElementById("index").style.color = localStorage.getItem("color");
+    document.getElementById("font_col").value = localStorage.getItem("color");
+  }
+  if (css_ff != null) {
+    document.getElementById("index").style.fontFamily = css_ff;
+    document.getElementById("s2").value = css_ff;
+  } else {
+    document.getElementById("index").style.fontFamily = "sans-serif";
+  }
 }
 function ide_color() {
   document.getElementById("index").style.color = localStorage.getItem("color");
