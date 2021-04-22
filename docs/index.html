@@ -8,11 +8,11 @@
 	<meta name = "author" content="HJCD studios">
 	<meta name = "description" content="A simple code editor with file save and file open no highlighter By HJCD studios">
 	<meta name = "keywords" content="IDE,Code Editor">
-	<!-- Font Awesome and other-- >
+	<!-- Font Awesome and other-->
 	<link rel = "stylesheet" type = "text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel = "stylesheet" type = "text/css" href = "../style.css">
   </head>
-  <script type="text/javascript">
+<script type="text/javascript">
 	//made by HJCD studios
 	var default_look = "<html>\n<head>\n<title></title>\n</head>\n<body>\n\n</body>\n</html>";
     function inits() {
@@ -222,9 +222,9 @@ input[type="file"] {
 	  </div>
 	  <table>
 		<tr>
-		  <td><div class = "btn_light" onClick="switchto('code','index');">Code <i class="fa fa-code"></i></div></td>
-		  <td><div class = "btn_light" onClick="output();switchto('index','code');">Play <i class="fa fa-play"></i></div></td>
-		  <td><div class = "btn_light" onClick="show_ops(true);">Options <i class="fa fa-ellipsis-v"></i></div></td>
+		  <td><input type = "button" class = "btn_light" onclick="switchto('code','index');" value = "Code"></td>
+		  <td><input type = "button" class = "btn_light" onclick="output();switchto('index','code');" value = "Play"></td>
+		  <td><input type = "button" class = "btn_light" onclick="show_ops(true);" value = "Options"></td>
 		</tr>
 	  </table>
 	  <hr>
@@ -235,3 +235,4 @@ input[type="file"] {
 	</center>
   </body>
 </html>
+
