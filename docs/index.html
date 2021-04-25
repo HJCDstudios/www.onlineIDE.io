@@ -8,231 +8,105 @@
 	<meta name = "author" content="HJCD studios">
 	<meta name = "description" content="A simple code editor with file save and file open no highlighter By HJCD studios">
 	<meta name = "keywords" content="IDE,Code Editor">
-	<!-- Font Awesome and other-->
-	<link rel = "stylesheet" type = "text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- other-->
 	<link rel = "stylesheet" type = "text/css" href = "../style.css">
+    <link rel = "stylesheet" type = "text/css" href = "CodeEditor.min.css">
   </head>
-<script type="text/javascript">
-	//made by HJCD studios
-	var default_look = "<html>\n<head>\n<title></title>\n</head>\n<body>\n\n</body>\n</html>";
-    function inits() {
-      var font_size = localStorage.getItem("font");
-      var css_ff = localStorage.getItem("ff");
-      if (font_size != null) {
-        document.getElementById("index").style.fontSize = font_size;
-        document.getElementById("s1").value = font_size;
-      } else {
-        document.getElementById("index").style.fontSize = "12px";
-      }
-      if (localStorage.getItem("text") != null) {
-        document.getElementById("index").value = localStorage.getItem("text");
-        output(document.getElementById("index").value);
-      }
-      if (localStorage.getItem("color") != null) {
-        document.getElementById("index").style.color = localStorage.getItem("color");
-        document.getElementById("font_col").value = localStorage.getItem("color");
-      }
-      if (css_ff != null) {
-        document.getElementById("index").style.fontFamily = css_ff;
-        document.getElementById("s2").value = css_ff;
-      } else {
-        document.getElementById("index").style.fontFamily = "sans-serif";
-      }
-    }
-    function ide_color() {
-       document.getElementById("index").style.color = localStorage.getItem("color");
-    }
-    function save_cache(val) {
-      localStorage.setItem("text",val);
-    }
-    function download(filename,text) {
-       var element = document.createElement('a');
-      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-      element.setAttribute('download', filename);
-      element.style.display = 'none';
-      document.body.appendChild(element);
-      element.click();
-      document.body.removeChild(element);
-    }
-    function output() {
-      var code = document.getElementById("code").contentWindow.document;
-      code.open();
-      code.writeln(document.getElementById("index").value);
-      code.close();
-    }
-    function choose_file_name() {
-      var fname = prompt("Enter file name");
-      if (fname != null) {
-        if (fname.length >= 1) {
-          download(fname,document.getElementById("index").value);
-        } else {
-          if (confirm("Save without extension?")) {
-            download(fname,document.getElementById("index").value);
-          }
-        }
-      }
-    }
-    function switchto(hide,show) {
-      document.getElementById(hide).style.display = "none";
-      document.getElementById(show).style.display = "block";
-    }
-    function show_ops(what) {
-      if (what) {
-        document.getElementById("options").style.display = "block";
-      } else {
-        document.getElementById("options").style.display = "none";
-      }
-    }
-    function clicks(item) {
-      switch(item) {
-        case "new_html":
-            new_htmls();
-        break;
-        case "save":
-          choose_file_name();
-        break;
-        case "open_file":
-          document.getElementById("f1").click();
-        break;
-        case "size":
-          document.getElementById("s1").click();
-         break;
-      case "help":
-          alert('Help\nThis site uses font-awesome\n\nThere is also cache used in this project for example it saves the following:\nYour Code\nYour font-size\nYour font-color\n\nMade by Jonas Krister Villamayor');
-    }
-    show_ops(false);
-    }
-	function new_htmls() {
-     if (document.getElementById("index").value != default_look && document.getElementById("index").value != "") {
-       if (confirm("File might not be saved?\nContinue?")) {
-	       document.getElementById("index").value = default_look;
-       }
-     } else {
-       document.getElementById("index").value = default_look;
-     }
-}
-function read_file(file) {
-  var fr = new FileReader();
-  fr.onload = function() {
-    document.getElementById("index").value = fr.result;
-    output(fr.result);
-  };
-  fr.readAsText(file);
-}
-function change_font(val) {
-  document.getElementById("index").style.fontSize = val;
-  localStorage.setItem("font",val);
-}
-function change_ff(val) {
-  document.getElementById("index").style.fontFamily = val;
-  localStorage.setItem("ff",val);
-}
-</script>
-<style type="text/css">
-body {
-  border: none;
-}
-textarea {
-  width: 100%;
-  border-color: grey;
-  font-size: 12px;
-}
-iframe {
-  width: 100%;
-  height: 500px;
-  border: none;
-}
-p,b {
-  color: white;
-}
-#code {
-  display: none;
-}
-#options {
-  display: none;
-  position: fixed;
-  width: 300px;
-  height: 320px;
-  border: none;
-  background-color: grey;
-  border-radius: 20px;
-  overflow: scroll;
-  border: 2px solid blue;
-}
-#options > div > i {
-  color: white;
-}
-#options > div {
-  margin-top: 20%;
-}
-input[type="file"] {
-  display: none;
-}
-</style>
-  <body onload="inits();">
-	<input type="file" id="f1" onChange="read_file(this.files[0]);" accept="text/*">
+  <script type = "text/javascript" src = "CodeEditor.min.js">
+  </script>
+  <body onload = "OnStart();" onbeforeunload = "SaveConfigs()">
 	<center>
-	  <div id="options">
-		<div>
-		  <i class="fa fa-user" onClick="clicks('new_html');"> New Project</i>
-		  <br>
-		  <br>
-		  <i class="fa fa-save" onClick="clicks('save');"> Save to device</i>
-		  <br>
-		  <br>
-		  <i class="fa fa-folder" onClick="clicks('open_file');"> Open Files</i>
-		  <br>
-		  <br>
-		  <i class="fa fa-question" onClick="clicks('help');"> Help</i>
-		  <br>
-		  <br>
-		  <b class="f">Font Size: </b>
-		  <select class="f" id="s1" onChange="clicks(); change_font(this.value);">
-			<option value="10px">10px</option>
-			<option value="11px">11px</option>
-			<option value="12px">12px</option>
-			<option value="13px">13px</option>
-			<option value="14px">14px</option>
-			<option value="15px">15px</option>
-			<option value="16px">16px</option>
-			<option value="17px">17px</option>
-			<option value="18px">18px</option>
-			<option value="19px">19px</option>
-			<option value="20px">20px</option>
-		  </select>
-		  <br>
-		  <br>
-		  <b class="f">Font-Family: </b>
-		  <select id="s2" onChange="clicks(); change_ff(this.value);">
-			<option value="sans-serif">sans serif</option>
-			<option value="monospace">monospace</option>
-			<option value="serif">serif</option>
-			<option value="cursive">cursive</option>
-		  </select>
-		  <br>
-		  <br>
-		  <b class="f">Font Color: </b><input id="font_col" type="color" onChange="localStorage.setItem('color',this.value); ide_color(); clicks()">
-		  <br>
-		  <br>
-		  <a href="https://github.com/HJCDstudios/CodeEditor">View on Github</a>
-		  <br>
-		  <br>
-		  <div class="btn f" onClick="clicks();">Cancel</div>
-		</div>
+	  <input type = "file" id = "File" accept = "*/*" onchange = "ReadFile(this.files[0])" class = "hide">
+      <div class = "Settings" style = "display: none">
+      <input type = "button" value = "New" class = "btn_light" onclick = "Settings();NewHtml()">
+      <br><br>
+      <input type = "button" value = "Set Font-Size" class = "btn_light" onclick = "Settings();Set('FS')">
+      <br><br>
+      <input type = "button" value = "Set Font-Family" class = "btn_light" onclick = "Settings();Set('FF')">
+      <br><br>
+      <input type = "button" value = "Set Text Color" class = "btn_light" onclick = "Settings();Set('C')">
+      <br><br>
+      <input type = "button" value = "Set Output width" class = "btn_light" onclick = "Settings();Set('W')">
+      <br><br>
+      <input type = "button" value = "Set Output height" class = "btn_light" onclick = "Settings();Set('H')">
+      <br><br>
+      <input type = "button" value = "Open Files" class = "btn_light" onclick = "Settings();CF()">
+      <br><br>
+      <input type = "button" value = "Save To Device" class = "btn_light" onclick = "Settings();CFL()">
+      <br><br>
+      <select class = "Theme select_light" onchange = "Settings();Set('T',this.value)">
+        <option value = "light">
+          Light
+        </option>
+        <option value = "dark">
+          Dark
+        </option>
+      </select>
+      <br><br>
+      <input type = "button" value = "Back" class = "btn_light" onclick = "Settings()">
+      </div>
+	  <div class = "Home hide">
+		<table>
+		  <tr>
+			<td>
+			  <input type = "button" value = "Code" class = "btn_light" onclick = "Hide('Output');Show('Editor')">
+			</td>
+			<td>
+			  <input type = "button" value = "Output" class = "btn_light" onclick = "Hide('Editor');Run();Show('Output')">
+			</td>
+			<td>
+			  <input type = "button" value = "Settings" class = "btn_light" onclick = "Settings();">
+			</td>
+		  </tr>
+		</table>
+		<textarea class = "Editor" autocapetalize = "no" rows = "300" onkeyup = "Set('LS',this.value)" onpaste = "Set('LS',this.value)"></textarea>
+		<iframe class = "Output hide" src = "" width = "100px"></iframe>
 	  </div>
-	  <table>
-		<tr>
-		  <td><input type = "button" class = "btn_light" onclick="switchto('code','index');" value = "Code"></td>
-		  <td><input type = "button" class = "btn_light" onclick="output();switchto('index','code');" value = "Play"></td>
-		  <td><input type = "button" class = "btn_light" onclick="show_ops(true);" value = "Options"></td>
-		</tr>
-	  </table>
-	  <hr>
-	  <textarea autocapitalize = "no" id="index" rows="1000" onkeyup="save_cache(this.value);">
-	  </textarea>
-	  <iframe src="" id="code">
-	  </iframe>
+      <div class = "Settings" style = "display: none">
+        <input type = "button" value = "New" class = "btn_dark" onclick = "Settings();NewHtml()">
+        <br><br>
+        <input type = "button" value = "Set Font-Size" class = "btn_dark" onclick = "Settings();Set('FS')">
+        <br><br>
+        <input type = "button" value = "Set Font-Family" class = "btn_dark" onclick = "Settings();Set('FF')">
+        <br><br>
+        <input type = "button" value = "Set Text Color" class = "btn_dark" onclick = "Settings();Set('C')">
+        <br><br>
+        <input type = "button" value = "Set Output width" class = "btn_dark" onclick = "Settings();Set('W')">
+        <br><br>
+        <input type = "button" value = "Set Output height" class = "btn_dark" onclick = "Settings();Set('H')">
+        <br><br>
+        <input type = "button" value = "Open Files" class = "btn_dark" onclick = "Settings();CF()">
+        <br><br>
+        <input type = "button" value = "Save To Device" class = "btn_dark" onclick = "Settings();CFL()">
+        <br><br>
+        <select class = "Theme select_dark" onchange = "Settings();Set('T',this.value)">
+          <option value = "light">
+            Light
+          </option>
+          <option value = "dark">
+            Dark
+          </option>
+        </select>
+        <br><br>
+        <input type = "button" value = "Back" class = "btn_dark" onclick = "Settings()">
+      </div>
+	  <div class = "Home hide">
+        <table>
+          <tr>
+            <td>
+              <input type = "button" value = "Code" class = "btn_dark" onclick = "Hide('Output');Show('Editor')">
+            </td>
+            <td>
+              <input type = "button" value = "Output" class = "btn_dark" onclick = "Hide('Editor');Run();Show('Output')">
+            </td>
+            <td>
+              <input type = "button" value = "Settings" class = "btn_dark" onclick = "Settings();">
+            </td>
+          </tr>
+        </table>
+        <textarea class = "Editor" autocapetalize = "no" rows = "300" onkeyup = "Set('LS',this.value)" onpaste = "Set('LS',this.value)"></textarea>
+		<iframe class = "Output hide" src = ""></iframe>
+	  </div>
 	</center>
   </body>
 </html>
-
